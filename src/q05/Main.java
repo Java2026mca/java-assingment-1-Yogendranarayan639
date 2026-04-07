@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Main {
-    // Function to check prime
+
     public static boolean isPrime(int num) {
         if (num <= 1) return false;
         for (int i = 2; i * i <= num; i++) {
@@ -10,38 +10,40 @@ public class Main {
         return true;
     }
 
-    // Function to check perfect number
     public static boolean isPerfect(int num) {
         if (num <= 1) return false;
-        int sum = 0;
 
-        for (int i = 1; i <= num / 2; i++) {
+        int sum = 1;
+
+        for (int i = 2; i * i <= num; i++) {
             if (num % i == 0) {
                 sum += i;
+                if (i != num / i) {
+                    sum += num / i;
+                }
             }
         }
+
         return sum == num;
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
         int n = sc.nextInt();
 
-        for (int i = 0; i < n; i++) {
+        while (n-- > 0) {
             int num = sc.nextInt();
 
-            boolean prime = isPrime(num);
-            boolean perfect = isPerfect(num);
-
-            if (prime && perfect) {
-                System.out.println("Both");
-            } else if (prime) {
+            if (isPrime(num)) {
                 System.out.println("Prime");
-            } else if (perfect) {
+            } else if (isPerfect(num)) {
                 System.out.println("Perfect");
             } else {
                 System.out.println("Neither");
             }
         }
+
+        sc.close();
     }
 }
