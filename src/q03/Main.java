@@ -1,56 +1,63 @@
 import java.util.*;
 
-class Main {
+public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
 
-        int[][] matrix = new int[n][n];
+        int[][] arr = new int[n][n];
 
         int top = 0, bottom = n - 1;
         int left = 0, right = n - 1;
         int num = 1;
 
+        // Fill matrix in spiral order
         while (top <= bottom && left <= right) {
 
+            // Left → Right
             for (int i = left; i <= right; i++) {
-                matrix[top][i] = num++;
+                arr[top][i] = num++;
             }
             top++;
 
+            // Top → Bottom
             for (int i = top; i <= bottom; i++) {
-                matrix[i][right] = num++;
+                arr[i][right] = num++;
             }
             right--;
 
+            // Right → Left
             if (top <= bottom) {
                 for (int i = right; i >= left; i--) {
-                    matrix[bottom][i] = num++;
+                    arr[bottom][i] = num++;
                 }
                 bottom--;
             }
 
+            // Bottom → Top
             if (left <= right) {
                 for (int i = bottom; i >= top; i--) {
-                    matrix[i][left] = num++;
+                    arr[i][left] = num++;
                 }
                 left++;
             }
         }
 
+        // Print matrix
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                System.out.print(matrix[i][j]);
+                System.out.print(arr[i][j]);
                 if (j < n - 1) System.out.print(" ");
             }
             System.out.println();
         }
 
-        int diagonal = 0;
+        // Calculate primary diagonal sum
+        int diagonalSum = 0;
         for (int i = 0; i < n; i++) {
-            diagonal += matrix[i][i];
+            diagonalSum += arr[i][i];
         }
 
-        System.out.println("Diagonal: " + diagonal);
+        System.out.println("Diagonal: " + diagonalSum);
     }
 }
