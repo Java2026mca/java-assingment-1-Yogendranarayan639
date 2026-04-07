@@ -1,14 +1,13 @@
 import java.util.*;
 
-public class Grader {
-
-    public static void solve() {
+public class Main {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         int n = sc.nextInt();
         int[] arr = new int[n];
 
-        // Read input
+        // Read n integers
         for (int i = 0; i < n; i++) {
             arr[i] = sc.nextInt();
         }
@@ -34,7 +33,7 @@ public class Grader {
         }
         System.out.println();
 
-        // Print swaps
+        // Print swap count
         System.out.println("Swaps: " + swaps);
 
         sc.close();
