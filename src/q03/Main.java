@@ -3,9 +3,9 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
 
-        int[][] arr = new int[n][n];
+        int n = sc.nextInt();
+        int[][] matrix = new int[n][n];
 
         int top = 0, bottom = n - 1;
         int left = 0, right = n - 1;
@@ -16,20 +16,20 @@ public class Main {
 
             // Left → Right
             for (int i = left; i <= right; i++) {
-                arr[top][i] = num++;
+                matrix[top][i] = num++;
             }
             top++;
 
             // Top → Bottom
             for (int i = top; i <= bottom; i++) {
-                arr[i][right] = num++;
+                matrix[i][right] = num++;
             }
             right--;
 
             // Right → Left
             if (top <= bottom) {
                 for (int i = right; i >= left; i--) {
-                    arr[bottom][i] = num++;
+                    matrix[bottom][i] = num++;
                 }
                 bottom--;
             }
@@ -37,7 +37,7 @@ public class Main {
             // Bottom → Top
             if (left <= right) {
                 for (int i = bottom; i >= top; i--) {
-                    arr[i][left] = num++;
+                    matrix[i][left] = num++;
                 }
                 left++;
             }
@@ -46,18 +46,12 @@ public class Main {
         // Print matrix
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                System.out.print(arr[i][j]);
-                if (j < n - 1) System.out.print(" ");
+                if (j > 0) System.out.print(" ");
+                System.out.print(matrix[i][j]);
             }
             System.out.println();
         }
 
-        // Calculate primary diagonal sum
-        int diagonalSum = 0;
-        for (int i = 0; i < n; i++) {
-            diagonalSum += arr[i][i];
-        }
-
-        System.out.println("Diagonal: " + diagonalSum);
+        sc.close();
     }
 }
