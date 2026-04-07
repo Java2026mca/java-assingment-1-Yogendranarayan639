@@ -1,21 +1,47 @@
 import java.util.*;
 
 public class Main {
+    // Function to check prime
+    public static boolean isPrime(int num) {
+        if (num <= 1) return false;
+        for (int i = 2; i * i <= num; i++) {
+            if (num % i == 0) return false;
+        }
+        return true;
+    }
+
+    // Function to check perfect number
+    public static boolean isPerfect(int num) {
+        if (num <= 1) return false;
+        int sum = 0;
+
+        for (int i = 1; i <= num / 2; i++) {
+            if (num % i == 0) {
+                sum += i;
+            }
+        }
+        return sum == num;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String shape = sc.next();
+        int n = sc.nextInt();
 
-        // TODO: Compute area using the correct formula
-        //
-        //   circle    r         → area = π * r * r          (use Math.PI)
-        //   rectangle l w       → area = l * w
-        //   triangle  a b c     → Heron's formula: s=(a+b+c)/2, area=sqrt(s(s-a)(s-b)(s-c))
-        //
-        // Print: "Area: X.XX"  (exactly 2 decimal places)
-        //
-        // Input: circle 7      → Output: Area: 153.94
-        // Input: rectangle 4 6 → Output: Area: 24.00
-        // Input: triangle 3 4 5→ Output: Area: 6.00
+        for (int i = 0; i < n; i++) {
+            int num = sc.nextInt();
 
+            boolean prime = isPrime(num);
+            boolean perfect = isPerfect(num);
+
+            if (prime && perfect) {
+                System.out.println("Both");
+            } else if (prime) {
+                System.out.println("Prime");
+            } else if (perfect) {
+                System.out.println("Perfect");
+            } else {
+                System.out.println("Neither");
+            }
+        }
     }
 }
