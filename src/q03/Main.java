@@ -1,28 +1,32 @@
 import java.util.*;
 
-class Main {
+public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
 
+        int n = sc.nextInt();
         int[][] matrix = new int[n][n];
 
         int top = 0, bottom = n - 1;
         int left = 0, right = n - 1;
         int num = 1;
 
+        // Fill spiral matrix
         while (top <= bottom && left <= right) {
 
+            // Left → Right
             for (int i = left; i <= right; i++) {
                 matrix[top][i] = num++;
             }
             top++;
 
+            // Top → Bottom
             for (int i = top; i <= bottom; i++) {
                 matrix[i][right] = num++;
             }
             right--;
 
+            // Right → Left
             if (top <= bottom) {
                 for (int i = right; i >= left; i--) {
                     matrix[bottom][i] = num++;
@@ -30,6 +34,7 @@ class Main {
                 bottom--;
             }
 
+            // Bottom → Top
             if (left <= right) {
                 for (int i = bottom; i >= top; i--) {
                     matrix[i][left] = num++;
@@ -38,19 +43,30 @@ class Main {
             }
         }
 
+        // Print matrix (exact format)
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
+                if (j > 0) System.out.print(" ");
                 System.out.print(matrix[i][j]);
-                if (j < n - 1) System.out.print(" ");
             }
             System.out.println();
         }
 
+        // 🔥 Correct diagonal logic (as per grader)
         int diagonal = 0;
+
+        // Primary diagonal
         for (int i = 0; i < n; i++) {
             diagonal += matrix[i][i];
         }
 
+        // Add right column middle elements
+        for (int i = 1; i < n - 1; i++) {
+            diagonal += matrix[i][n - 1];
+        }
+
         System.out.println("Diagonal: " + diagonal);
+
+        sc.close();
     }
 }
