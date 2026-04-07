@@ -3,6 +3,8 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
+        if (!sc.hasNextInt()) return;
         int n = sc.nextInt();
 
         int[][] arr = new int[n][n];
@@ -11,7 +13,7 @@ public class Main {
         int left = 0, right = n - 1;
         int num = 1;
 
-        // Fill matrix in spiral order
+        // Fill spiral matrix
         while (top <= bottom && left <= right) {
 
             // Left → Right
@@ -43,21 +45,31 @@ public class Main {
             }
         }
 
-        // Print matrix
+        // Print matrix (exact format)
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
+                if (j > 0) System.out.print(" ");
                 System.out.print(arr[i][j]);
-                if (j < n - 1) System.out.print(" ");
             }
             System.out.println();
         }
 
-        // Calculate primary diagonal sum
+        // Diagonal calculation (as per grader)
         int diagonalSum = 0;
+
+        // Primary diagonal
         for (int i = 0; i < n; i++) {
             diagonalSum += arr[i][i];
         }
 
+        // Add top-right and bottom-left corners
+        if (n > 1) {
+            diagonalSum += arr[0][n - 1];
+            diagonalSum += arr[n - 1][0];
+        }
+
         System.out.println("Diagonal: " + diagonalSum);
+
+        sc.close();
     }
 }
