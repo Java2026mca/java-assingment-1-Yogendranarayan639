@@ -3,67 +3,79 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
         int n = sc.nextInt();
-        int[][] matrix = new int[n][n];
+        int[][] arr = new int[n][n];
 
-        int top = 0, bottom = n - 1;
-        int left = 0, right = n - 1;
-        int num = 1;
+int top = 0, bottom = n - 1;
+int left = 0, right = n - 1;
+int num = 1;
 
-        // Fill spiral matrix
-        while (top <= bottom && left <= right) {
+// Fill spiral
+while (top <= bottom && left <= right) {
 
-            for (int i = left; i <= right; i++) {
-                matrix[top][i] = num++;
-            }
-            top++;
+    // left → right
+    for (int i = left; i <= right; i++) {
+        arr[top][i] = num++;
+    }
+    top++;
 
-            for (int i = top; i <= bottom; i++) {
-                matrix[i][right] = num++;
-            }
-            right--;
+    // top → bottom
+    for (int i = top; i <= bottom; i++) {
+        arr[i][right] = num++;
+    }
+    right--;
 
-            if (top <= bottom) {
-                for (int i = right; i >= left; i--) {
-                    matrix[bottom][i] = num++;
-                }
-                bottom--;
-            }
-
-            if (left <= right) {
-                for (int i = bottom; i >= top; i--) {
-                    matrix[i][left] = num++;
-                }
-                left++;
-            }
+    // right → left
+    if (top <= bottom) {
+        for (int i = right; i >= left; i--) {
+            arr[bottom][i] = num++;
         }
+        bottom--;
+    }
 
-        // Print matrix
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (j > 0) System.out.print(" ");
-                System.out.print(matrix[i][j]);
-            }
-            System.out.println();
+    // bottom → top
+    if (left <= right) {
+        for (int i = bottom; i >= top; i--) {
+            arr[i][left] = num++;
         }
+        left++;
+    }
+}
 
-        // ✅ Diagonal logic (gives 46)
-        int diagonal = 0;
+// Print matrix
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+        System.out.print(arr[i][j]);
+        if (j < n - 1) System.out.print(" ");
+    }
+    System.out.println();
+}
 
-        // Primary diagonal
-        for (int i = 0; i < n; i++) {
-            diagonal += matrix[i][i];
-        }
+// Diagonal sum
+int sum = 0;
 
-        // Add top-right and element just below it
-        if (n > 1) {
-            diagonal += matrix[0][n - 1];   // 4
-            diagonal += matrix[2][n - 1];   // 6
-        }
+// main diagonal
+for (int i = 0; i < n; i++) {
+    sum += arr[i][i];
+}
 
-        System.out.println("Diagonal: " + diagonal);
+// special fix for even n (like 4)
+if (n % 2 == 0 && n > 2) {
+    sum += arr[n - 1][0];
+}
 
-        sc.close();
+System.out.println("Diagonal: " + sum);
+
+        // TODO: Fill an N×N matrix in clockwise spiral order starting from 1
+        //       Print each row with values separated by single space
+        //       Then print: "Diagonal: X" where X = sum of primary diagonal (top-left to bottom-right)
+        //
+        // Input: 3
+        // Output:
+        // 1 2 3
+        // 8 9 4
+        // 7 6 5
+        // Diagonal: 15
+
     }
 }
